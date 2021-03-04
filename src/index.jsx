@@ -1,7 +1,6 @@
 import ReactDom from 'react-dom';
 import React from 'react';
 import App from './App';
-import './index.css';
 import tasks from './data/tasks';
 
 ReactDom.render(

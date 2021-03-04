@@ -3,25 +3,40 @@ import Task from './Task';
 const TaskList = ({ data }) => {
   const [tasks, setTasks] = useState(data);
 
+  /**
+   *  Handles deleting a Task
+   * @param {number} id Used as identification to delete a specific element
+   */
+  const handleDelete = (id) => {
+    setTasks(tasks.filter((task) => task.id != id));
+  };
+
+  /**
+   * Handles saving the editted task into the state
+   * @param {Task Object} edit The task that was modified
+   */
+  const handleEdit = (edit) => {
+    let todos = [...tasks]; // Copy State
+    let index = todos.findIndex((todo) => todo.id === edit.id); // Find index of editted element
+    todos[index].description = edit.description; // Change the description of the element
+    setTasks(todos); // Save the updated array to state
+  };
+
   const renderedList = tasks.map((task) => {
     return (
-      <li
+      <Task
         key={task.id}
-        className='m-3 container mx-auto border-2 border-gray-300 rounded'
-      >
-        <Task task={task} />
-      </li>
+        task={task}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     );
   });
 
   return (
-    <div className='flex flex-col justify-items-auto container mx-auto'>
-      <h1 className='text-5xl relative'>Tasks</h1>
-      {tasks ? (
-        <ul className='list-inside list-none md:list-none'>{renderedList}</ul>
-      ) : (
-        'No current tasks'
-      )}
+    <div className='ui container'>
+      <h1>Tasks</h1>
+      {tasks ? <ul>{renderedList}</ul> : 'No current tasks'}
     </div>
   );
 };
