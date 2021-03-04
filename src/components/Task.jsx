@@ -1,5 +1,5 @@
 import React from 'react';
 const Task = ({ task }) => {
-  return <span>{task.description}</span>;
+  return <div className='inline'>{task.description}</div>;
 };
 export default Task;
